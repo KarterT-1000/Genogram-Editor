@@ -134,7 +134,7 @@ document.getElementById('line-color-blue')?.addEventListener('click', (e) => {
 })
 
 document.getElementById('line-color-green')?.addEventListener('click', (e) => {
-  editor.setLineColor('green')
+  editor.setLineColor('lightgreen')
   document.querySelectorAll('.color-selector button').forEach(btn => btn.classList.remove('active'))
     ; (e.target as HTMLElement).classList.add('active')
 })
