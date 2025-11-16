@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genogram Editor - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* styles.cssの内容をここに含める（または<link>で読み込む） */
+        /* 実際のパッケージ使用時は: <link rel="stylesheet" href="node_modules/genogram-editor/dist/styles.css"> */
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <!-- 開発環境用: type="module"でESモジュールとして読み込み -->
+    <script type="module">
+        // 実際のパッケージ使用時:
+        // import createGenogramEditor from 'genogram-editor';
+        // import 'genogram-editor/dist/styles.css';
+
+        // 開発環境では相対パスでインポート
+        import createGenogramEditor from '../src/index.js';
+
+        // エディタを初期化
+        const ui = createGenogramEditor({
+            container: document.getElementById('app'),
+            canvasWidth: 1200,
+            canvasHeight: 900,
+            showExportButton: true,
+            onExport: (json) => {
+                // エクスポート時の処理
+                console.log('Exported JSON:', json);
+
+                // ダウンロード機能を追加
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `genogram-${Date.now()}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            },
+            onClear: () => {
+                console.log('Canvas cleared');
+            }
+        });
+
+        // エディタインスタンスを取得して、イベントリスナーを追加
+        const editor = ui.getEditor();
+
+        // データ変更時のイベント
+        editor.addEventListener('change', (e) => {
+            console.log('Data changed:', e.detail);
+            // ここで自動保存などの処理を実装可能
+        });
+
+        // 図形追加時のイベント
+        editor.addEventListener('shapeAdd', (e) => {
+            console.log('Shape added:', e.detail);
+        });
+
+        // 図形削除時のイベント
+        editor.addEventListener('shapeDelete', (e) => {
+            console.log('Shape deleted:', e.detail);
+        });
+
+        // 線追加時のイベント
+        editor.addEventListener('lineAdd', (e) => {
+            console.log('Line added:', e.detail);
+        });
+
+        // 線削除時のイベント
+        editor.addEventListener('lineDelete', (e) => {
+            console.log('Line deleted:', e.detail);
+        });
+
+        // モード変更時のイベント
+        editor.addEventListener('modeChange', (e) => {
+            console.log('Mode changed:', e.detail);
+        });
+
+        // サンプルデータの読み込み機能（オプション）
+        window.loadSampleData = () => {
+            const sampleData = {
+                shapes: [
+                    { id: 'shape-1', type: 'square', x: 300, y: 300, age: '50' },
+                    { id: 'shape-2', type: 'circle', x: 450, y: 300, age: '48' },
+                    { id: 'shape-3', type: 'square', x: 300, y: 450, age: '25' },
+                    { id: 'shape-4', type: 'circle', x: 450, y: 450, age: '23' }
+                ],
+                lines: [
+                    { id: 'line-1', startId: 'shape-1', endId: 'shape-2', style: 'normal', color: '#1F2937' },
+                    { id: 'line-2', startId: 'shape-1', endId: 'shape-3', style: 'normal', color: '#1F2937' },
+                    { id: 'line-3', startId: 'shape-2', endId: 'shape-4', style: 'normal', color: '#1F2937' }
+                ]
+            };
+
+            editor.loadData(sampleData);
+            console.log('Sample data loaded');
+        };
+
+        console.log('Genogram Editor initialized!');
+        console.log('Try: window.loadSampleData() to load sample data');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,261 @@
+/* ============================================
+   全体レイアウト
+   ============================================ */
+.genogram-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* ============================================
+   サイドバー（操作パネル）
+   ============================================ */
+.genogram-sidebar {
+  width: 280px;
+  background: #f3f4f6;
+  border-right: 2px solid #ccc;
+  padding: 15px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.genogram-sidebar h1 {
+  margin: 0 0 15px 0;
+  font-size: 24px;
+}
+
+/* ============================================
+   モード切替バー
+   ============================================ */
+.genogram-modebar {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 10px;
+}
+
+/* ============================================
+   各セクション
+   ============================================ */
+.genogram-shape-selector,
+.genogram-line-selector,
+.genogram-color-selector {
+  margin: 5px 0;
+}
+
+.genogram-shape-selector {
+  display: block;
+  /* 初期表示 */
+}
+
+.genogram-line-selector,
+.genogram-color-selector {
+  display: none;
+  /* 初期非表示 */
+}
+
+.genogram-export-selector {
+  display: flex;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+/* ボタングループ */
+.shape-buttons,
+.line-buttons,
+.color-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 5px 0;
+}
+
+/* ============================================
+   ボタン基本スタイル
+   ============================================ */
+.genogram-sidebar button {
+  padding: 8px 10px;
+  margin: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #ffffff;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.genogram-sidebar button:hover {
+  background: #e5e7eb;
+}
+
+/* ============================================
+   モードボタン（アクティブ状態）
+   ============================================ */
+.genogram-modebar button[data-mode="add"].active {
+  background: #4CAF50;
+  color: white;
+  font-weight: bold;
+  border-color: #4CAF50;
+}
+
+.genogram-modebar button[data-mode="line"].active {
+  background: #2196F3;
+  color: white;
+  font-weight: bold;
+  border-color: #2196F3;
+}
+
+.genogram-modebar button[data-mode="delete"].active {
+  background: #eb203b;
+  color: white;
+  font-weight: bold;
+  border-color: #eb203b;
+}
+
+/* ============================================
+   図形ボタン（アクティブ状態）
+   ============================================ */
+.shape-buttons button[data-shape="square"].active {
+  background: #3B82F6;
+  color: white;
+  border-color: #3B82F6;
+}
+
+.shape-buttons button[data-shape="circle"].active {
+  background: #EC4899;
+  color: white;
+  border-color: #EC4899;
+}
+
+.shape-buttons button[data-shape="triangle"].active {
+  background: #10B981;
+  color: white;
+  border-color: #10B981;
+}
+
+.shape-buttons button[data-shape="diamond"].active {
+  background: #F59E0B;
+  color: white;
+  border-color: #F59E0B;
+}
+
+.shape-buttons button[data-shape="slash"].active {
+  background: #6366F1;
+  color: white;
+  border-color: #6366F1;
+}
+
+.shape-buttons button[data-shape="star"].active {
+  background: #FFD900;
+  color: white;
+  border-color: #FFD900;
+}
+
+/* ============================================
+   ラインボタン（アクティブ状態）
+   ============================================ */
+.line-buttons button.active {
+  background: #5fdaff;
+  color: white;
+  border-color: #5fdaff;
+}
+
+/* ============================================
+   カラーボタン（アクティブ状態）
+   ============================================ */
+.color-buttons button[data-color="black"].active {
+  background: #6b7280;
+  color: white;
+  font-weight: bold;
+  border-color: #6b7280;
+}
+
+.color-buttons button[data-color="red"].active {
+  background: #ef4444;
+  color: white;
+  font-weight: bold;
+  border-color: #ef4444;
+}
+
+.color-buttons button[data-color="blue"].active {
+  background: #3b82f6;
+  color: white;
+  font-weight: bold;
+  border-color: #3b82f6;
+}
+
+.color-buttons button[data-color="green"].active {
+  background: #10b981;
+  color: white;
+  font-weight: bold;
+  border-color: #10b981;
+}
+
+/* ============================================
+   入力フィールド
+   ============================================ */
+#age-input {
+  width: 60px;
+  padding: 5px 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  margin-left: 5px;
+}
+
+#age-input:focus {
+  outline: none;
+  border-color: #3B82F6;
+}
+
+#age-input:hover {
+  background: #f9fafb;
+}
+
+/* ============================================
+   区切り線
+   ============================================ */
+.genogram-sidebar hr {
+  border: none;
+  border-top: 1px solid #d1d5db;
+  margin: 10px 0;
+}
+
+/* ============================================
+   キャンバスエリア
+   ============================================ */
+#canvas-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #f9fafb;
+}
+
+#genogram-canvas {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================
+   レスポンシブ対応（オプション）
+   ============================================ */
+@media (max-width: 768px) {
+  .genogram-container {
+    flex-direction: column;
+  }
+
+  .genogram-sidebar {
+    width: 100%;
+    height: auto;
+    max-height: 40vh;
+    border-right: none;
+    border-bottom: 2px solid #ccc;
+  }
+
+  #canvas-wrapper {
+    padding: 10px;
+  }
+
+  #genogram-canvas {
+    width: 100%;
+    height: auto;
+  }
+}
